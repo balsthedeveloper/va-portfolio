@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240">
+  <rect width="320" height="240" fill="#FBE4D5"/>
+  <circle cx="58" cy="40" r="66" fill="#FFF8F0" opacity=".75"/>
+  <circle cx="276" cy="206" r="62" fill="#F6D3BC" opacity=".7"/>
+
+  <g transform="rotate(8 175 125)">
+    <rect x="112" y="40" width="130" height="166" rx="10" fill="#FFF8F0" stroke="#9A4A2A" stroke-opacity=".15" stroke-width="1.5"/>
+  </g>
+  <g transform="rotate(-5 150 125)">
+    <rect x="88" y="34" width="140" height="174" rx="10" fill="#fff" stroke="#9A4A2A" stroke-opacity=".2" stroke-width="1.5"/>
+    <rect x="104" y="52" width="34" height="4" rx="2" fill="#C8643C"/>
+    <rect x="104" y="64" width="94" height="8" rx="4" fill="#9A4A2A" opacity=".8"/>
+    <rect x="104" y="78" width="62" height="8" rx="4" fill="#9A4A2A" opacity=".8"/>
+    <rect x="104" y="96" width="108" height="42" rx="6" fill="#FBE4D5"/>
+    <g transform="translate(158 117)" fill="#C8643C" opacity=".75">
+      <circle cy="-7" r="5"/><circle cx="7" r="5"/><circle cy="7" r="5"/><circle cx="-7" r="5"/>
+      <circle r="3" fill="#FFF8F0"/>
+    </g>
+    <rect x="104" y="148" width="108" height="4" rx="2" fill="#3B2F2A" opacity=".15"/>
+    <rect x="104" y="158" width="98" height="4" rx="2" fill="#3B2F2A" opacity=".15"/>
+    <rect x="104" y="168" width="108" height="4" rx="2" fill="#3B2F2A" opacity=".15"/>
+    <rect x="104" y="178" width="66" height="4" rx="2" fill="#3B2F2A" opacity=".15"/>
+    <rect x="104" y="190" width="40" height="8" rx="4" fill="#C8643C" opacity=".85"/>
+  </g>
+
+  <g transform="translate(206 168) rotate(-40)">
+    <rect x="0" y="-5" width="82" height="10" rx="5" fill="#9A4A2A"/>
+    <path d="M1 -5L-14 0L1 5Z" fill="#C8643C"/>
+    <rect x="60" y="-5" width="6" height="10" fill="#C8643C"/>
+  </g>
+
+  <circle cx="252" cy="66" r="17" fill="#C8643C"/>
+  <path transform="translate(244 58) scale(.66)" d="M12 0C12.6 6.6 17.4 11.4 24 12C17.4 12.6 12.6 17.4 12 24C11.4 17.4 6.6 12.6 0 12C6.6 11.4 11.4 6.6 12 0Z" fill="#fff"/>
+  <path transform="translate(54 150) scale(.7)" d="M12 0C12.6 6.6 17.4 11.4 24 12C17.4 12.6 12.6 17.4 12 24C11.4 17.4 6.6 12.6 0 12C6.6 11.4 11.4 6.6 12 0Z" fill="#9A4A2A" opacity=".6"/>
+</svg>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jessa | Social Media and Writing Support</title>
+<meta name="description" content="Social media and writing support for therapists, coaches, and new business owners who want to show up online with confidence.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#FFF8F0',
+          peach: '#FBE4D5',
+          terracotta: '#C8643C',
+          rust: '#9A4A2A',
+          ink: '#3B2F2A',
+        },
+        fontFamily: {
+          serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+          sans: ['Jost', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html { scroll-padding-top: 100px; }
+
+  /* floating nav links */
+  .nav-link { display: inline-flex; align-items: center; gap: .6rem; padding: .7rem 1.15rem; border-radius: .85rem; color: rgb(59 47 42 / .8); transition: background-color .25s, color .25s; }
+  .nav-link svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; color: #C8643C; transition: transform .3s; }
+  .nav-link:hover, .nav-link.active { background: rgb(251 228 213 / .75); color: #9A4A2A; }
+  .nav-link:hover svg { transform: scale(1.12) rotate(-6deg); }
+  /* logo wordmark: rust-to-terracotta ink with a soft letterpress shadow */
+  .logo-word {
+    background: linear-gradient(110deg, #7E3A1F 0%, #9A4A2A 22%, #C8643C 48%, #E39470 62%, #C8643C 76%, #8A3F22 100%);
+    background-size: 130% 100%; background-position: 0% 0;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(255,255,255,.9)) drop-shadow(0 3px 5px rgba(154,74,42,.28));
+    transition: background-position .8s ease;
+    padding-right: .1em; /* keeps the italic "a" from clipping */
+  }
+  .logo:hover .logo-word { background-position: 100% 0; }
+
+  #navPill.scrolled { background: rgb(255 255 255 / .9); }
+  body { -webkit-font-smoothing: antialiased; }
+
+  /* soft paper grain over the whole page */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none;
+    background-image: url("assets/grain.svg"); opacity: .05;
+  }
+
+  /* small uppercase section labels */
+  .eyebrow { font-size: .75rem; letter-spacing: .28em; text-transform: uppercase; color: #9A4A2A; font-weight: 500; }
+
+  /* keyword strip */
+  .marquee { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* gentle fade-up on scroll (only when JS is available) */
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  /* custom scrollbar */
+  html { scrollbar-color: #C8643C #FFF8F0; scrollbar-width: thin; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: #FFF8F0; }
+  ::-webkit-scrollbar-thumb { background: #C8643C; border-radius: 9999px; border: 3px solid #FFF8F0; }
+  ::-webkit-scrollbar-thumb:hover { background: #9A4A2A; }
+  ::selection { background: #FBE4D5; color: #9A4A2A; }
+
+  /* intro chat: bubbles arrive one by one */
+  .js .chat-in { opacity: 0; translate: 0 10px; transition: opacity .6s ease, translate .6s ease; }
+  .js .reveal.in .chat-in { opacity: 1; translate: 0 0; }
+  .js .reveal.in li.chat-in:nth-child(1) { transition-delay: .25s; }
+  .js .reveal.in li.chat-in:nth-child(2) { transition-delay: .55s; }
+  .js .reveal.in li.chat-in:nth-child(3) { transition-delay: .85s; }
+  .js .reveal.in p.chat-in { transition-delay: 1.35s; }
+
+  :focus-visible { outline: 2px solid #C8643C; outline-offset: 3px; border-radius: 6px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .marquee { animation: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .js .chat-in { opacity: 1; translate: none; transition: none; }
+  }
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body class="bg-white font-sans font-light text-ink text-[1.0625rem] leading-relaxed">
+
+<!-- ============ HEADER ============ -->
+<!-- shared nav icons -->
+<svg width="0" height="0" class="absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-path" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></symbol>
+    <symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.6"/><circle cx="16.5" cy="10" r="2.6"/><circle cx="12" cy="14.5" r="2.6"/><circle cx="7.5" cy="10" r="2.6"/><circle cx="12" cy="10" r="1.4"/><path d="M12 17.2V22"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.4v2.8a1.9 1.9 0 0 1-2.1 1.9 18.6 18.6 0 0 1-8.1-2.9 18.3 18.3 0 0 1-5.6-5.6A18.6 18.6 0 0 1 2.3 4.5 1.9 1.9 0 0 1 4.2 2.4H7a1.9 1.9 0 0 1 1.9 1.6c.1.9.3 1.7.6 2.5a1.9 1.9 0 0 1-.4 2L7.9 9.7a15 15 0 0 0 5.6 5.6l1.2-1.2a1.9 1.9 0 0 1 2-.4c.8.3 1.6.5 2.5.6a1.9 1.9 0 0 1 1.8 2.1z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></symbol>
+  </defs>
+</svg>
+
+<header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-6 md:pt-4">
+  <div id="navPill" class="max-w-6xl mx-auto h-[72px] pl-7 pr-2.5 flex items-center justify-between rounded-[1.25rem] border border-peach bg-white/70 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(154,74,42,.35)] transition-[background-color,box-shadow] duration-300">
+    <a href="#home" class="logo group flex items-center" aria-label="Jessa, back to top">
+      <span class="logo-word relative font-serif italic font-medium text-[2.7rem] md:text-[3.1rem] leading-none tracking-[-.01em] pb-1">
+        Jessa
+      </span>
+    </a>
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-1.5 text-[1.05rem]">
+        <li><a href="#help" class="nav-link"><svg><use href="#i-heart"/></svg>How I Help</a></li>
+        <li><a href="#process" class="nav-link"><svg><use href="#i-path"/></svg>Process</a></li>
+        <li><a href="#about" class="nav-link"><svg><use href="#i-flower"/></svg>About</a></li>
+        <li class="ml-2">
+          <a href="#contact" class="group inline-flex items-center gap-2 rounded-[.85rem] bg-terracotta text-white font-normal pl-6 pr-2 py-2 hover:bg-rust transition-colors">
+            Work With Me
+            <span class="grid place-items-center w-10 h-10 rounded-[.65rem] bg-white/20 transition-transform group-hover:rotate-[-12deg]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mail"/></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <button id="menuBtn" class="lg:hidden grid place-items-center w-12 h-12 rounded-[.85rem] bg-peach/70 text-rust" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4 9h16M8 15h12"/></svg>
+    </button>
+  </div>
+
+  <nav id="mobileMenu" aria-label="Mobile" class="hidden lg:hidden mt-2 rounded-[1.25rem] border border-peach bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(154,74,42,.35)]">
+    <ul class="p-3 flex flex-col gap-1 text-lg">
+      <li><a href="#help" class="nav-link w-full !py-3"><svg><use href="#i-heart"/></svg>How I Help</a></li>
+      <li><a href="#process" class="nav-link w-full !py-3"><svg><use href="#i-path"/></svg>Process</a></li>
+      <li><a href="#about" class="nav-link w-full !py-3"><svg><use href="#i-flower"/></svg>About</a></li>
+      <li class="pt-2"><a href="#contact" class="flex items-center justify-center gap-2 rounded-[.85rem] bg-terracotta text-white px-5 py-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mail"/></svg>Work With Me</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="home">
+
+  <!-- hero + keyword strip share the first screen -->
+  <div class="flex flex-col min-h-[100svh]">
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden flex-1 flex items-center">
+    <div aria-hidden="true" class="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-peach/70 blur-3xl"></div>
+    <div aria-hidden="true" class="absolute -bottom-48 -left-40 w-[420px] h-[420px] rounded-full bg-cream blur-3xl"></div>
+    <img src="assets/flower-asset.jpg" alt="" aria-hidden="true"
+         class="absolute bottom-0 right-0 w-full h-[55%] md:h-full md:w-[58%] object-cover object-[50%_40%] opacity-50 md:opacity-70
+                [mask-image:linear-gradient(to_top,black,transparent)] md:[mask-image:linear-gradient(to_left,black_35%,transparent)]">
+
+    <div class="relative w-full max-w-6xl mx-auto px-5 md:px-8 pt-28 pb-14 md:pt-32 md:pb-16 grid md:grid-cols-12 gap-14 md:gap-10 items-center">
+      <div class="md:col-span-7 reveal">
+        <p class="inline-flex items-center gap-3 rounded-full border border-terracotta/25 bg-peach/80 pl-1.5 pr-5 py-1.5 text-[.95rem] md:text-base text-ink/75 shadow-[0_8px_24px_-14px_rgba(154,74,42,.45)]">
+          <span aria-hidden="true" class="grid place-items-center w-9 h-9 rounded-full bg-terracotta text-white font-serif font-semibold text-xl leading-none">J</span>
+          <span class="font-serif italic text-xl text-rust">Hi, I'm Jessa</span>
+          <span aria-hidden="true" class="hidden sm:block w-1 h-1 rounded-full bg-terracotta/60"></span>
+          <span class="hidden sm:inline">social media &amp; writing support</span>
+        </p>
+
+        <h1 class="mt-7 font-serif font-medium text-rust text-[3.1rem] sm:text-6xl md:text-[5.2rem] leading-[1.02] tracking-[-.01em]">
+          Your story deserves<br class="hidden sm:block"> to be <em class="italic font-normal text-terracotta">seen.</em>
+        </h1>
+
+        <p class="mt-6 max-w-lg text-xl md:text-[1.45rem] leading-relaxed text-ink/80">
+          I help therapists, coaches, and new business owners show up online with confidence, without the overwhelm.
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a href="#contact" class="rounded-full bg-terracotta text-white font-normal px-7 py-3.5 hover:bg-rust transition-colors">Let's Talk</a>
+          <a href="#help" class="group inline-flex items-center gap-2 px-2 py-3.5 text-rust font-normal">
+            See how I help
+            <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="md:col-span-5 reveal">
+        <div class="relative mx-auto w-[72%] max-w-[310px]">
+          <div aria-hidden="true" class="absolute inset-0 translate-x-4 translate-y-4 rounded-t-full border border-terracotta/40"></div>
+          <img src="assets/jessa-portrait.jpg" alt="Jessa smiling, wearing a white floral dress"
+               class="relative w-full aspect-[3/4] object-cover object-[50%_15%] rounded-t-full border-[6px] border-white shadow-[0_30px_60px_-30px_rgba(154,74,42,.5)]">
+          <img src="assets/sparkle.svg" alt="" aria-hidden="true" class="absolute -top-3 -left-6 w-7 opacity-80">
+          <img src="assets/sparkle.svg" alt="" aria-hidden="true" class="absolute top-1/3 -right-7 w-4 opacity-60">
+          <div class="absolute -left-10 bottom-10 rounded-2xl bg-white/90 backdrop-blur px-5 py-3 shadow-[0_10px_30px_-12px_rgba(154,74,42,.35)]">
+            <p class="font-serif italic text-xl text-rust leading-tight">content &middot; community<br>&amp; clarity</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KEYWORD STRIP ============ -->
+  <div class="bg-peach/70 border-y border-peach overflow-hidden py-4" aria-hidden="true">
+    <div class="marquee font-serif italic text-2xl md:text-[1.7rem] text-rust whitespace-nowrap">
+      <div class="flex items-center gap-8 pr-8">
+        <span>Content planning</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Community engagement</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Newsletters</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Blog writing</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Monthly reports</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Substack promotion</span><span class="text-terracotta text-base">&#10022;</span>
+      </div>
+      <div class="flex items-center gap-8 pr-8">
+        <span>Content planning</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Community engagement</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Newsletters</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Blog writing</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Monthly reports</span><span class="text-terracotta text-base">&#10022;</span>
+        <span>Substack promotion</span><span class="text-terracotta text-base">&#10022;</span>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- ============ INTRO ============ -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-12 gap-14 md:gap-16 items-center">
+
+      <!-- DM-style conversation -->
+      <div class="md:col-span-5 reveal">
+        <div class="relative rounded-[2.5rem] bg-cream border border-peach px-6 py-9 sm:px-9">
+          <img src="assets/flower-line.svg" alt="" aria-hidden="true" class="absolute -top-7 -right-3 w-12 rotate-12 opacity-80">
+          <img src="assets/sparkle.svg" alt="" aria-hidden="true" class="absolute bottom-8 -left-3 w-5 opacity-70">
+
+          <p class="text-center text-xs tracking-[.2em] uppercase text-ink/60 mb-6">Sound familiar?</p>
+
+          <ul class="space-y-3" aria-label="Common questions when starting out online">
+            <li class="chat-in w-fit max-w-[85%] rounded-2xl rounded-bl-md bg-white border border-peach px-4 py-2.5 shadow-sm -rotate-1">What should I even post?</li>
+            <li class="chat-in w-fit max-w-[85%] rounded-2xl rounded-bl-md bg-white border border-peach px-4 py-2.5 shadow-sm ml-4 rotate-1">How often do I need to show up?</li>
+            <li class="chat-in w-fit max-w-[85%] rounded-2xl rounded-bl-md bg-white border border-peach px-4 py-2.5 shadow-sm -rotate-[.5deg]">And who am I supposed to talk to?</li>
+          </ul>
+
+          <div class="mt-6 flex items-end justify-end gap-2.5">
+            <p class="chat-in max-w-[80%] rounded-2xl rounded-br-md bg-terracotta text-white px-4 py-2.5 shadow-[0_10px_24px_-12px_rgba(154,74,42,.6)]">
+              Breathe. We'll figure it out together <span aria-hidden="true">&#10022;</span>
+            </p>
+            <span aria-hidden="true" class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-rust text-white font-serif font-semibold text-base leading-none">J</span>
+          </div>
+          <p class="mt-2 pr-11 text-right text-xs text-ink/60">Seen just now</p>
+        </div>
+      </div>
+
+      <!-- statement -->
+      <div class="md:col-span-7 reveal">
+        <p class="eyebrow">Hello, nice to meet you</p>
+        <h2 class="mt-4 font-serif font-medium text-rust text-4xl md:text-[3.4rem] leading-[1.05]">
+          Starting out online can feel like <em class="italic font-normal text-terracotta">a lot.</em>
+        </h2>
+        <p class="mt-6 text-lg md:text-[1.3rem] leading-relaxed text-ink/80 max-w-xl">
+          What to post, how often, who to talk to. I'm <span class="font-serif italic text-[1.4rem] md:text-[1.6rem] text-rust">Jessa</span>, a social media manager who runs day-to-day content, engagement, and monthly reporting for established creators.
+        </p>
+        <p class="mt-6 font-serif italic text-[1.75rem] md:text-[2.1rem] leading-snug text-rust max-w-xl">
+          Now I'm here to help you build the same steady, warm presence for your own business.
+        </p>
+
+        <ul class="mt-10 grid sm:grid-cols-3 gap-4">
+          <li class="rounded-2xl border border-peach px-5 py-4 flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0 text-terracotta" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-pen"/></svg>
+            <span class="text-[.95rem]">Day-to-day content</span>
+          </li>
+          <li class="rounded-2xl border border-peach px-5 py-4 flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0 text-terracotta" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-heart"/></svg>
+            <span class="text-[.95rem]">Community engagement</span>
+          </li>
+          <li class="rounded-2xl border border-peach px-5 py-4 flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0 text-terracotta" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16l4-5 3 3 5-6"/></svg>
+            <span class="text-[.95rem]">Monthly reporting</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="help" class="bg-cream">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+      <div class="grid md:grid-cols-2 gap-6 md:gap-12 items-end reveal">
+        <div>
+          <p class="eyebrow">How I help</p>
+          <h2 class="mt-4 font-serif font-medium text-rust text-4xl md:text-[3.4rem] leading-[1.05]">
+            Pick one, or <em class="italic font-normal text-terracotta">combine</em> them.
+          </h2>
+        </div>
+        <p class="text-ink/75 md:text-lg max-w-sm md:justify-self-end">
+          Each is shaped around your time, your voice, and your goals.
+        </p>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-3 gap-6">
+        <article class="reveal group rounded-[2rem] bg-white border border-peach p-8 md:p-9 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
+          <div class="-mx-3 -mt-3 md:-mx-4 md:-mt-4 overflow-hidden rounded-[1.5rem]">
+            <img src="assets/svc-social.svg" alt="" aria-hidden="true" class="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <div class="my-6 h-px bg-peach group-hover:bg-terracotta/40 transition-colors"></div>
+          <h3 class="font-serif font-medium text-2xl text-rust">Social Media Management</h3>
+          <p class="mt-3 text-ink/75">Planning, posting, and engaging with your community, so you stay consistent without burning out.</p>
+        </article>
+
+        <article id="writing" class="reveal group rounded-[2rem] bg-white border border-peach p-8 md:p-9 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
+          <div class="-mx-3 -mt-3 md:-mx-4 md:-mt-4 overflow-hidden rounded-[1.5rem]">
+            <img src="assets/svc-writing.svg" alt="" aria-hidden="true" class="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <div class="my-6 h-px bg-peach group-hover:bg-terracotta/40 transition-colors"></div>
+          <h3 class="font-serif font-medium text-2xl text-rust">Writing Support</h3>
+          <p class="mt-3 text-ink/75">Whether it's a newsletter, a blog, or content for your socials, I help you get your words written, polished, and in front of the right readers.</p>
+        </article>
+
+        <article class="reveal group rounded-[2rem] bg-white border border-peach p-8 md:p-9 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
+          <div class="-mx-3 -mt-3 md:-mx-4 md:-mt-4 overflow-hidden rounded-[1.5rem]">
+            <img src="assets/svc-analytics.svg" alt="" aria-hidden="true" class="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <div class="my-6 h-px bg-peach group-hover:bg-terracotta/40 transition-colors"></div>
+          <h3 class="font-serif font-medium text-2xl text-rust">Analytics and Reporting</h3>
+          <p class="mt-3 text-ink/75">Clear monthly insights on what's working and what to try next, in plain language.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHO I WORK WITH ============ -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-14 md:gap-20 items-center">
+      <div class="reveal">
+        <p class="eyebrow">Who I work with</p>
+        <h2 class="mt-4 font-serif font-medium text-rust text-4xl md:text-[3.4rem] leading-[1.05]">
+          People building something <em class="italic font-normal text-terracotta">meaningful.</em>
+        </h2>
+        <p class="mt-6 text-lg md:text-[1.3rem] leading-relaxed text-ink/80 max-w-lg">
+          I love supporting therapists, fitness coaches, wellness practitioners, and other coaches who want their online presence to feel as genuine as their work.
+        </p>
+        <ul class="mt-8 flex flex-wrap gap-2.5 text-base md:text-[1.05rem]">
+          <li class="rounded-full bg-peach/70 px-4 py-2 text-rust">Therapists</li>
+          <li class="rounded-full bg-peach/70 px-4 py-2 text-rust">Fitness coaches</li>
+          <li class="rounded-full bg-peach/70 px-4 py-2 text-rust">Wellness practitioners</li>
+          <li class="rounded-full bg-peach/70 px-4 py-2 text-rust">Life &amp; business coaches</li>
+          <li class="rounded-full border border-peach px-4 py-2 text-ink/70">New business owners</li>
+        </ul>
+      </div>
+
+      <figure class="reveal relative rounded-[2rem] bg-cream border border-peach px-8 pt-16 pb-10 md:px-12 md:pt-20 md:pb-12">
+        <span aria-hidden="true" class="absolute top-2 left-7 md:left-10 font-serif text-[7rem] leading-none text-terracotta/30">&ldquo;</span>
+        <blockquote class="font-serif italic text-2xl md:text-[1.9rem] leading-snug text-rust">
+          Many of my clients find me through creators and coaches I've worked alongside. I'm grateful for every introduction, and I treat every business like it's my own.
+        </blockquote>
+        <figcaption class="mt-6 flex items-center gap-3 text-sm tracking-wide text-ink/70">
+          <span class="h-px w-8 bg-terracotta/50"></span> Jessa
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="process" class="bg-cream">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-12 gap-14 md:gap-16">
+
+      <!-- intro (sticks while the steps scroll on desktop) -->
+      <div class="md:col-span-5 md:sticky md:top-32 self-start reveal">
+        <p class="eyebrow">How it works</p>
+        <h2 class="mt-4 font-serif font-medium text-rust text-4xl md:text-[3.4rem] leading-[1.05]">
+          Simple, <em class="italic font-normal text-terracotta">gentle</em> steps.
+        </h2>
+        <p class="mt-6 text-lg md:text-[1.3rem] leading-relaxed text-ink/80 max-w-md">
+          No complicated onboarding. Here's how we go from a first hello to a steady, warm presence online.
+        </p>
+
+        <div class="mt-9 relative rounded-[2rem] overflow-hidden border border-peach bg-white p-6 flex items-center gap-5">
+          <img src="assets/flower-asset.jpg" alt="" aria-hidden="true" class="w-16 h-20 shrink-0 rounded-t-full object-cover">
+          <div>
+            <p class="font-serif italic text-xl text-rust leading-snug">Ready for step one?</p>
+            <a href="https://scheduler.zoom.us/jessa-may-suelto/free-intro-call-with-jessa" target="_blank" rel="noopener"
+               class="group mt-2 inline-flex items-center gap-2 text-terracotta hover:text-rust transition-colors">
+              <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+              Book a free intro call
+              <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- steps timeline -->
+      <div class="md:col-span-7 relative">
+
+        <ol class="space-y-6">
+          <li class="reveal relative flex gap-5 sm:gap-7">
+            <span aria-hidden="true" class="absolute left-7 top-14 -bottom-6 border-l border-dashed border-terracotta/35"></span>
+            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-white border border-terracotta/40 text-terracotta shadow-[0_0_0_6px_#FFF8F0]">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4 3.5V16A2 2 0 0 1 4 14z"/><path d="M9 10h.01M12 10h.01M15 10h.01"/></svg>
+            </span>
+            <div class="flex-1 rounded-[1.75rem] bg-white border border-peach p-6 sm:p-8 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <p class="eyebrow !text-terracotta">Step 1</p>
+                <span class="rounded-full bg-peach/70 px-3 py-1 text-xs tracking-wide text-rust">Free intro call</span>
+              </div>
+              <h3 class="mt-3 font-serif font-medium text-[1.8rem] leading-tight text-rust">Say hello.</h3>
+              <p class="mt-2 text-ink/75">Tell me about your business and your goals.</p>
+            </div>
+          </li>
+
+          <li class="reveal relative flex gap-5 sm:gap-7">
+            <span aria-hidden="true" class="absolute left-7 top-14 -bottom-6 border-l border-dashed border-terracotta/35"></span>
+            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-white border border-terracotta/40 text-terracotta shadow-[0_0_0_6px_#FFF8F0]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-path"/></svg>
+            </span>
+            <div class="flex-1 rounded-[1.75rem] bg-white border border-peach p-6 sm:p-8 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <p class="eyebrow !text-terracotta">Step 2</p>
+                <span class="rounded-full bg-peach/70 px-3 py-1 text-xs tracking-wide text-rust">Tailored to you</span>
+              </div>
+              <h3 class="mt-3 font-serif font-medium text-[1.8rem] leading-tight text-rust">We make a plan.</h3>
+              <p class="mt-2 text-ink/75">A simple, realistic approach that fits your time and budget.</p>
+            </div>
+          </li>
+
+          <li class="reveal relative flex gap-5 sm:gap-7">
+            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-terracotta text-white shadow-[0_0_0_6px_#FFF8F0]">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2.5 19.5h19"/><path d="M9 10.5l2 2 4-4"/></svg>
+            </span>
+            <div class="flex-1 rounded-[1.75rem] bg-rust text-cream p-6 sm:p-8 relative overflow-hidden transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(154,74,42,.7)]">
+              <img src="assets/flower-asset.jpg" alt="" aria-hidden="true" class="absolute inset-y-0 right-0 w-1/2 h-full object-cover opacity-[.12] mix-blend-luminosity [mask-image:linear-gradient(to_left,black,transparent)]">
+              <div class="relative">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <p class="eyebrow !text-peach">Step 3</p>
+                  <span class="rounded-full bg-white/15 px-3 py-1 text-xs tracking-wide text-cream">Ongoing support</span>
+                </div>
+                <h3 class="mt-3 font-serif font-medium text-[1.8rem] leading-tight text-cream">I get to work.</h3>
+                <p class="mt-2 text-cream/80">You focus on your clients while I help you grow your presence.</p>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="bg-white">
+    <div class="max-w-5xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-12 gap-12 md:gap-14 items-center">
+      <div class="md:col-span-4 reveal">
+        <div class="relative mx-auto w-[220px] md:w-[250px]">
+          <div aria-hidden="true" class="absolute inset-0 -translate-x-3 translate-y-3 rounded-t-full bg-peach"></div>
+          <img src="assets/flower-asset.jpg" alt="Soft blush and cream poppies against a warm wall"
+               class="relative w-full aspect-[4/5] object-cover rounded-t-full">
+          <img src="assets/sparkle.svg" alt="" aria-hidden="true" class="absolute -top-2 -right-4 w-6 opacity-80">
+        </div>
+      </div>
+
+      <div class="md:col-span-8 reveal">
+        <p class="eyebrow">About me</p>
+        <h2 class="mt-4 font-serif font-medium text-rust text-4xl md:text-[3.4rem] leading-[1.05]">
+          Hi, I'm <em class="italic font-normal text-terracotta">Jessa.</em>
+        </h2>
+        <p class="mt-6 text-lg md:text-[1.3rem] leading-relaxed text-ink/80">
+          I'm a social media manager based in the Philippines. Day to day, I run social media, engage with communities, and prepare monthly analytics and engagement reports, including promotion for newsletters on Substack.
+        </p>
+        <p class="mt-6 font-serif italic text-[1.75rem] md:text-[2.1rem] leading-snug text-rust">
+          I love to help. If you're just starting out online, you're in the right place.
+        </p>
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-base tracking-wide text-ink/70">
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-terracotta"></span>Social media</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-terracotta"></span>Community</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-terracotta"></span>Analytics</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-terracotta"></span>Substack</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section id="contact" class="bg-white px-4 md:px-8 pb-20 md:pb-28">
+    <div class="reveal relative max-w-6xl mx-auto overflow-hidden rounded-[2.5rem] bg-rust px-6 py-20 md:py-28 text-center">
+      <img src="assets/flower-asset.jpg" alt="" aria-hidden="true"
+           class="absolute inset-y-0 right-0 h-full w-full md:w-1/2 object-cover opacity-[.14] mix-blend-luminosity [mask-image:linear-gradient(to_left,black,transparent)]">
+      <div aria-hidden="true" class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-terracotta/40 blur-3xl"></div>
+
+      <div class="relative">
+        <p class="eyebrow !text-peach/90">Work with me</p>
+        <h2 class="mt-5 mx-auto max-w-3xl font-serif font-medium text-cream text-4xl md:text-6xl leading-[1.05]">
+          Ready to feel <em class="italic font-normal text-peach">good</em> about your online presence?
+        </h2>
+        <p class="mt-6 mx-auto max-w-md text-cream/80 md:text-lg">
+          Let's chat about what you need. No pressure, just a friendly first conversation.
+        </p>
+        <div class="mt-10 flex flex-col items-center gap-6">
+          <a href="https://scheduler.zoom.us/jessa-may-suelto/free-intro-call-with-jessa" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 rounded-full bg-cream text-rust font-normal px-8 py-4 hover:bg-peach transition-colors"><svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg> Book a Free Intro Call</a>
+
+          <div class="flex items-center gap-3 text-sm text-cream/70 w-full max-w-sm">
+            <span class="h-px flex-1 bg-cream/20"></span>or send me an email<span class="h-px flex-1 bg-cream/20"></span>
+          </div>
+
+          <!-- email with copy button -->
+          <div class="inline-flex items-center gap-1 max-w-full rounded-full border border-cream/25 bg-white/10 backdrop-blur pl-2 pr-1.5 py-1.5">
+            <a href="mailto:jessamay122818@gmail.com" class="flex items-center gap-2.5 min-w-0 rounded-full px-3 py-2 text-cream hover:bg-white/10 transition-colors">
+              <svg class="w-[18px] h-[18px] shrink-0 text-peach" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-mail"/></svg>
+              <span id="emailText" class="truncate tracking-wide">jessamay122818@gmail.com</span>
+            </a>
+            <button id="copyEmail" type="button" class="shrink-0 inline-flex items-center gap-2 rounded-full bg-cream text-rust text-sm px-4 py-2.5 hover:bg-peach transition-colors" aria-label="Copy email address">
+              <svg id="copyIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="3"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+              <svg id="checkIcon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+              <span id="copyLabel">Copy</span>
+            </button>
+          </div>
+          <p id="copyStatus" class="sr-only" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-cream border-t border-peach">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pt-16 pb-10">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <a href="#home" class="font-serif italic text-4xl text-rust">Jessa</a>
+        <p class="mt-2 text-ink/70">Social Media and Writing Support</p>
+      </div>
+      <nav aria-label="Footer">
+        <p class="eyebrow mb-4">Explore</p>
+        <ul class="space-y-2 text-ink/80">
+          <li><a href="#help" class="hover:text-terracotta">How I Help</a></li>
+          <li><a href="#writing" class="hover:text-terracotta">Writing Support</a></li>
+          <li><a href="#about" class="hover:text-terracotta">About</a></li>
+          <li><a href="#contact" class="hover:text-terracotta">Work With Me</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="eyebrow mb-4">Say hello</p>
+        <ul class="space-y-2 text-ink/80">
+          <li>
+            <a href="mailto:jessamay122818@gmail.com" class="inline-flex items-center gap-2.5 hover:text-terracotta">
+              <svg class="w-[18px] h-[18px] shrink-0 text-terracotta" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-mail"/></svg>
+              jessamay122818@gmail.com
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-6 border-t border-peach flex flex-col sm:flex-row gap-3 justify-between text-sm text-ink/60">
+      <p>&copy; <span id="year">2026</span> Jessa. Made with care.</p>
+      <a href="#home" class="hover:text-terracotta">Back to top &uarr;</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('hidden') === false;
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    menuBtn.setAttribute('aria-expanded', false);
+  }));
+
+  // nav: firmer background once scrolled
+  const navPill = document.getElementById('navPill');
+  const onScroll = () => navPill.classList.toggle('scrolled', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // nav: highlight the section in view
+  const links = [...document.querySelectorAll('.nav-link')];
+  const spySections = ['help', 'process', 'about', 'contact'].map(id => document.getElementById(id));
+  const setActive = id => links.forEach(l => {
+    const on = l.getAttribute('href') === '#' + id;
+    l.classList.toggle('active', on);
+    on ? l.setAttribute('aria-current', 'true') : l.removeAttribute('aria-current');
+  });
+
+  let clickLock = false, lockTimer;
+  const releaseLockSoon = () => { clearTimeout(lockTimer); lockTimer = setTimeout(() => { clickLock = false; }, 200); };
+
+  const updateActive = () => {
+    if (clickLock) { releaseLockSoon(); return; }
+    const line = window.innerHeight * 0.35;
+    let current = null;
+    spySections.forEach(s => { if (s.getBoundingClientRect().top <= line) current = s.id; });
+    setActive(current);
+  };
+
+  links.forEach(l => l.addEventListener('click', () => {
+    setActive(l.getAttribute('href').slice(1));
+    clickLock = true;
+    clearTimeout(lockTimer);
+    lockTimer = setTimeout(() => { clickLock = false; }, 1000); // in case the page doesn't need to scroll
+  }));
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+
+  // copy email to clipboard
+  const copyBtn = document.getElementById('copyEmail');
+  const email = document.getElementById('emailText').textContent.trim();
+  let copyTimer;
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // fallback for browsers without the clipboard API
+      const t = document.createElement('textarea');
+      t.value = email; t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove();
+    }
+    document.getElementById('copyIcon').classList.add('hidden');
+    document.getElementById('checkIcon').classList.remove('hidden');
+    document.getElementById('copyLabel').textContent = 'Copied!';
+    document.getElementById('copyStatus').textContent = 'Email address copied to clipboard';
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => {
+      document.getElementById('copyIcon').classList.remove('hidden');
+      document.getElementById('checkIcon').classList.add('hidden');
+      document.getElementById('copyLabel').textContent = 'Copy';
+      document.getElementById('copyStatus').textContent = '';
+    }, 2000);
+  });
+
+  // fade-up on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
