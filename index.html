@@ -71,6 +71,26 @@
   .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
   .js .reveal.in { opacity: 1; transform: none; }
 
+  /* work gallery */
+  .work-filter { border-radius: 9999px; padding: .6rem 1.15rem; font-size: .95rem; border: 1px solid #FBE4D5; background: #fff; color: rgb(59 47 42 / .8); transition: background-color .25s, color .25s, border-color .25s; }
+  .work-filter:hover { border-color: rgb(200 100 60 / .4); color: #9A4A2A; }
+  .work-filter[aria-pressed="true"] { background: #C8643C; border-color: #C8643C; color: #fff; }
+  .work-item { break-inside: avoid; margin-bottom: 1.5rem; }
+  .work-item.is-hidden { display: none; }
+  .work-open { display: block; width: 100%; text-align: left; border-radius: 1.5rem; overflow: hidden; border: 1px solid #FBE4D5; background: #fff; cursor: zoom-in; transition: transform .5s, box-shadow .5s; }
+  a.work-open { cursor: pointer; }
+  .work-open:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -28px rgba(154,74,42,.45); }
+  .work-thumb { display: block; overflow: hidden; background: #FFF8F0; }
+  .work-thumb img { display: block; width: 100%; height: auto; transition: transform .7s; }
+  .work-open:hover .work-thumb img { transform: scale(1.03); }
+  .work-cap { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; padding: 1rem 1.25rem 1.15rem; }
+  .work-title { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: 1.35rem; line-height: 1.15; color: #9A4A2A; }
+  .work-sub { display: block; margin-top: .25rem; font-size: .9rem; color: rgb(59 47 42 / .65); }
+  .work-tag { flex-shrink: 0; border-radius: 9999px; background: rgb(251 228 213 / .75); color: #9A4A2A; font-size: .75rem; letter-spacing: .04em; padding: .3rem .7rem; }
+  .lb-btn { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 9999px; background: rgb(255 248 240 / .12); color: #FFF8F0; border: 1px solid rgb(255 248 240 / .25); transition: background-color .25s; }
+  .lb-btn:hover { background: rgb(255 248 240 / .25); }
+  html.lb-open { overflow: hidden; }
+
   /* custom scrollbar */
   html { scrollbar-color: #C8643C #FFF8F0; scrollbar-width: thin; }
   ::-webkit-scrollbar { width: 12px; height: 12px; }
@@ -110,6 +130,7 @@
     <symbol id="i-path" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></symbol>
     <symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.6"/><circle cx="16.5" cy="10" r="2.6"/><circle cx="12" cy="14.5" r="2.6"/><circle cx="7.5" cy="10" r="2.6"/><circle cx="12" cy="10" r="1.4"/><path d="M12 17.2V22"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.4v2.8a1.9 1.9 0 0 1-2.1 1.9 18.6 18.6 0 0 1-8.1-2.9 18.3 18.3 0 0 1-5.6-5.6A18.6 18.6 0 0 1 2.3 4.5 1.9 1.9 0 0 1 4.2 2.4H7a1.9 1.9 0 0 1 1.9 1.6c.1.9.3 1.7.6 2.5a1.9 1.9 0 0 1-.4 2L7.9 9.7a15 15 0 0 0 5.6 5.6l1.2-1.2a1.9 1.9 0 0 1 2-.4c.8.3 1.6.5 2.5.6a1.9 1.9 0 0 1 1.8 2.1z"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="9.5" r="1.8"/><path d="M3.5 17l5-5 4 4 2.5-2.5 5.5 5"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></symbol>
   </defs>
 </svg>
@@ -125,6 +146,7 @@
     <nav aria-label="Main" class="hidden lg:block">
       <ul class="flex items-center gap-1.5 text-[1.05rem]">
         <li><a href="#help" class="nav-link"><svg><use href="#i-heart"/></svg>How I Help</a></li>
+        <li><a href="#work" class="nav-link"><svg><use href="#i-image"/></svg>Work</a></li>
         <li><a href="#process" class="nav-link"><svg><use href="#i-path"/></svg>Process</a></li>
         <li><a href="#about" class="nav-link"><svg><use href="#i-flower"/></svg>About</a></li>
         <li class="ml-2">
@@ -146,6 +168,7 @@
   <nav id="mobileMenu" aria-label="Mobile" class="hidden lg:hidden mt-2 rounded-[1.25rem] border border-peach bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(154,74,42,.35)]">
     <ul class="p-3 flex flex-col gap-1 text-lg">
       <li><a href="#help" class="nav-link w-full !py-3"><svg><use href="#i-heart"/></svg>How I Help</a></li>
+      <li><a href="#work" class="nav-link w-full !py-3"><svg><use href="#i-image"/></svg>Work</a></li>
       <li><a href="#process" class="nav-link w-full !py-3"><svg><use href="#i-path"/></svg>Process</a></li>
       <li><a href="#about" class="nav-link w-full !py-3"><svg><use href="#i-flower"/></svg>About</a></li>
       <li class="pt-2"><a href="#contact" class="flex items-center justify-center gap-2 rounded-[.85rem] bg-terracotta text-white px-5 py-3">
@@ -337,8 +360,181 @@
     </div>
   </section>
 
+  <!-- ============ WORK ============ -->
+  <section id="work" class="bg-white">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+
+      <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-end reveal">
+        <div class="md:col-span-7">
+          <p class="eyebrow">Selected work</p>
+          <h2 class="mt-4 font-serif font-medium text-rust text-4xl md:text-[3.4rem] leading-[1.05]">
+            A peek at my <em class="italic font-normal text-terracotta">work.</em>
+          </h2>
+          <p class="mt-6 text-lg md:text-[1.3rem] leading-relaxed text-ink/80 max-w-2xl">
+            As a Social Media Manager, I manage Tina and Rebecca’s social media accounts. Both are therapists and coaches, and I make sure their posts align with their branding guidelines, including fonts, colors, and overall visual style.
+          </p>
+        </div>
+
+        <!-- clients -->
+        <ul class="md:col-span-5 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4">
+          <li class="rounded-[1.5rem] bg-cream border border-peach p-5">
+            <p class="font-serif text-2xl text-rust leading-none">Tina</p>
+            <p class="mt-1 text-sm tracking-wide text-ink/65">Therapist &amp; coach</p>
+            <p class="mt-3 text-[.95rem] text-ink/80">IG Reels, feed &amp; app promo</p>
+          </li>
+          <li class="rounded-[1.5rem] bg-cream border border-peach p-5">
+            <p class="font-serif text-2xl text-rust leading-none">Rebecca</p>
+            <p class="mt-1 text-sm tracking-wide text-ink/65">Therapist &amp; coach, LCSW</p>
+            <p class="mt-3 text-[.95rem] text-ink/80">Feed, highlights, events &amp; reports</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- filters -->
+      <div class="mt-14 flex flex-wrap gap-2.5" role="group" aria-label="Filter work">
+        <button type="button" class="work-filter" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="work-filter" data-filter="social" aria-pressed="false">Social media</button>
+        <button type="button" class="work-filter" data-filter="design" aria-pressed="false">Design</button>
+        <button type="button" class="work-filter" data-filter="email" aria-pressed="false">Email marketing</button>
+        <button type="button" class="work-filter" data-filter="planning" aria-pressed="false">Planning &amp; reports</button>
+      </div>
+
+      <!-- gallery -->
+      <div class="mt-8 columns-1 sm:columns-2 lg:columns-3 gap-6">
+
+        <div class="work-item reveal" data-cat="social">
+          <button type="button" class="work-open group" data-full="assets/works/web/tina-reels-1.webp" data-title="Reels feed for Tina" data-sub="Instagram · on-brand Reels">
+            <span class="work-thumb"><img src="assets/works/web/tina-reels-1.webp" width="1400" height="885" loading="lazy" alt="Tina's Instagram grid of Reels with matching music-player style covers"></span>
+            <span class="work-cap"><span><span class="work-title">Reels feed for Tina</span><span class="work-sub">Instagram · on-brand Reels</span></span><span class="work-tag">Social</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="design">
+          <button type="button" class="work-open group" data-full="assets/works/web/card-anchor-app.webp" data-title="App promo card" data-sub="Tina · Anchor Into Presence">
+            <span class="work-thumb"><img src="assets/works/web/card-anchor-app.webp" width="750" height="750" loading="lazy" alt="Promo card for Tina's guided meditation app, Anchor Into Presence, with a QR code"></span>
+            <span class="work-cap"><span><span class="work-title">App promo card</span><span class="work-sub">Tina · Anchor Into Presence</span></span><span class="work-tag">Design</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="social">
+          <button type="button" class="work-open group" data-full="assets/works/web/rebecca-instagram.webp" data-title="Instagram profile for Rebecca" data-sub="Feed posts, quote graphics &amp; highlight covers">
+            <span class="work-thumb"><img src="assets/works/web/rebecca-instagram.webp" width="1400" height="873" loading="lazy" alt="Rebecca's Instagram profile with branded highlight covers and quote posts"></span>
+            <span class="work-cap"><span><span class="work-title">Instagram profile for Rebecca</span><span class="work-sub">Feed posts, quote graphics &amp; highlights</span></span><span class="work-tag">Social</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="design">
+          <button type="button" class="work-open group" data-full="assets/works/web/flyer-event.webp" data-title="Event flyer" data-sub="Rebecca × Kayla · live Zoom conversation">
+            <span class="work-thumb"><img src="assets/works/web/flyer-event.webp" width="1400" height="1980" loading="lazy" alt="Flyer for the live conversation 'When looking fine is the symptom' with Rebecca Glavin and Kayla Hamm"></span>
+            <span class="work-cap"><span><span class="work-title">Event flyer</span><span class="work-sub">Rebecca × Kayla · live Zoom conversation</span></span><span class="work-tag">Design</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="social">
+          <button type="button" class="work-open group" data-full="assets/works/web/healthcare-reels.webp" data-title="IG Reels for a healthcare client" data-sub="Healthcare industry · Instagram">
+            <span class="work-thumb"><img src="assets/works/web/healthcare-reels.webp" width="1400" height="1035" loading="lazy" alt="Grid of Instagram Reels created for a healthcare equipment client"></span>
+            <span class="work-cap"><span><span class="work-title">IG Reels</span><span class="work-sub">Healthcare industry client · Instagram</span></span><span class="work-tag">Social</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="email">
+          <button type="button" class="work-open group" data-full="assets/works/web/email-holiday.webp" data-title="Holiday email campaign" data-sub="Email marketing">
+            <span class="work-thumb"><img src="assets/works/web/email-holiday.webp" width="1322" height="1496" loading="lazy" alt="Holiday email header reading '15 days until Christmas' over a pine tree background"></span>
+            <span class="work-cap"><span><span class="work-title">Holiday email campaign</span><span class="work-sub">Email marketing</span></span><span class="work-tag">Email</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="social">
+          <button type="button" class="work-open group" data-full="assets/works/web/highlight-covers.webp" data-title="Story highlight covers" data-sub="Rebecca · Instagram">
+            <span class="work-thumb"><img src="assets/works/web/highlight-covers.webp" width="1200" height="269" loading="lazy" alt="Instagram story highlight covers: Start Here, Substack, Coaching, For Mothers, Nervous System"></span>
+            <span class="work-cap"><span><span class="work-title">Story highlight covers</span><span class="work-sub">Rebecca · Instagram</span></span><span class="work-tag">Social</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="design">
+          <button type="button" class="work-open group" data-full="assets/works/web/card-rebecca.webp" data-title="Business card" data-sub="Rebecca · LCSW, counselor turned coach">
+            <span class="work-thumb"><img src="assets/works/web/card-rebecca.webp" width="788" height="788" loading="lazy" alt="Business card for Rebecca Glavin, LCSW, counselor turned coach"></span>
+            <span class="work-cap"><span><span class="work-title">Business card</span><span class="work-sub">Rebecca · counselor turned coach</span></span><span class="work-tag">Design</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="planning">
+          <button type="button" class="work-open group" data-full="assets/works/web/metricool-planning.webp" data-title="Weekly planning in Metricool" data-sub="Rebecca · Instagram, LinkedIn &amp; TikTok">
+            <span class="work-thumb"><img src="assets/works/web/metricool-planning.webp" width="1400" height="795" loading="lazy" alt="Metricool weekly calendar with scheduled posts for Instagram, LinkedIn and TikTok"></span>
+            <span class="work-cap"><span><span class="work-title">Weekly planning in Metricool</span><span class="work-sub">Rebecca · Instagram, LinkedIn &amp; TikTok</span></span><span class="work-tag">Planning</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="design">
+          <button type="button" class="work-open group" data-full="assets/works/web/flyer-wellness.webp" data-title="Wellness event post" data-sub="Rebecca × Kayla · Instagram">
+            <span class="work-thumb"><img src="assets/works/web/flyer-wellness.webp" width="1080" height="1350" loading="lazy" alt="Instagram post announcing a wellness event with Rebecca Glavin and Kayla Hamm"></span>
+            <span class="work-cap"><span><span class="work-title">Wellness event post</span><span class="work-sub">Rebecca × Kayla · Instagram</span></span><span class="work-tag">Design</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="social">
+          <button type="button" class="work-open group" data-full="assets/works/web/tina-reels-2.webp" data-title="Talking-head Reels for Tina" data-sub="Instagram · created &amp; posted for Tina">
+            <span class="work-thumb"><img src="assets/works/web/tina-reels-2.webp" width="1400" height="885" loading="lazy" alt="Tina's Instagram Reels alternating talking-head videos and branded covers"></span>
+            <span class="work-cap"><span><span class="work-title">Talking-head Reels for Tina</span><span class="work-sub">Instagram · created &amp; posted for Tina</span></span><span class="work-tag">Social</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="email">
+          <button type="button" class="work-open group" data-full="assets/works/web/email-healthcare.webp" data-title="Seasonal email for a healthcare client" data-sub="Email marketing">
+            <span class="work-thumb"><img src="assets/works/web/email-healthcare.webp" width="1324" height="1338" loading="lazy" alt="Winter email for a healthcare equipment rental client"></span>
+            <span class="work-cap"><span><span class="work-title">Seasonal email</span><span class="work-sub">Healthcare industry client</span></span><span class="work-tag">Email</span></span>
+          </button>
+        </div>
+
+        <div class="work-item reveal" data-cat="planning">
+          <button type="button" class="work-open group" data-full="assets/works/web/loomly-calendar.webp" data-title="Content calendar in Loomly" data-sub="Healthcare client · Facebook, X &amp; LinkedIn">
+            <span class="work-thumb"><img src="assets/works/web/loomly-calendar.webp" width="1400" height="743" loading="lazy" alt="Loomly monthly content calendar with scheduled and published posts"></span>
+            <span class="work-cap"><span><span class="work-title">Content calendar in Loomly</span><span class="work-sub">Healthcare client · Facebook, X &amp; LinkedIn</span></span><span class="work-tag">Planning</span></span>
+          </button>
+        </div>
+
+        <!-- report: opens the PDF -->
+        <div class="work-item reveal" data-cat="planning">
+          <a href="assets/works/Rebecca_Glavin_September_2026_Social_Media_Report.pdf" target="_blank" rel="noopener" class="work-open group">
+            <span class="work-thumb block bg-gradient-to-br from-cream to-peach px-8 py-10">
+              <span class="block mx-auto max-w-[260px] rounded-xl bg-white shadow-[0_20px_40px_-20px_rgba(154,74,42,.45)] px-6 py-7 -rotate-2 transition-transform duration-700 group-hover:rotate-0">
+                <span class="block font-serif text-[1.35rem] leading-tight text-ink text-center">Social Media Performance Report</span>
+                <span class="block mt-1 text-xs tracking-[.2em] uppercase text-terracotta text-center">Monthly</span>
+                <span class="block mx-auto mt-4 h-px w-20 bg-peach"></span>
+                <span class="mt-5 flex items-end gap-1.5 h-14 justify-center" aria-hidden="true">
+                  <span class="w-4 h-[35%] rounded bg-peach"></span><span class="w-4 h-[55%] rounded bg-peach"></span><span class="w-4 h-[45%] rounded bg-[#F6D3BC]"></span><span class="w-4 h-[75%] rounded bg-terracotta/60"></span><span class="w-4 h-full rounded bg-terracotta"></span>
+                </span>
+                <span class="mt-5 block space-y-1.5" aria-hidden="true"><span class="block h-1.5 rounded bg-ink/10"></span><span class="block h-1.5 w-4/5 rounded bg-ink/10"></span><span class="block h-1.5 w-3/5 rounded bg-ink/10"></span></span>
+              </span>
+            </span>
+            <span class="work-cap"><span><span class="work-title">Monthly social media report</span><span class="work-sub">Rebecca · open the PDF &nearr;</span></span><span class="work-tag">Report</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- lightbox for work samples -->
+  <dialog id="lightbox" class="bg-transparent p-0 m-0 w-full h-full max-w-none max-h-none backdrop:bg-ink/85 backdrop:backdrop-blur-sm">
+    <div class="w-full h-full flex flex-col items-center justify-center gap-4 p-4 md:p-10" data-close>
+      <figure class="relative max-w-6xl w-full flex flex-col items-center">
+        <img id="lbImg" src="assets/works/web/tina-reels-1.webp" alt="" class="max-h-[78vh] w-auto max-w-full rounded-2xl bg-white shadow-2xl">
+        <figcaption class="mt-4 text-center text-cream">
+          <p id="lbTitle" class="font-serif italic text-2xl"></p>
+          <p id="lbSub" class="mt-1 text-sm text-cream/70"></p>
+        </figcaption>
+      </figure>
+      <div class="flex items-center gap-3">
+        <button type="button" id="lbPrev" class="lb-btn" aria-label="Previous work"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <span id="lbCount" class="min-w-[4rem] text-center text-sm text-cream/70"></span>
+        <button type="button" id="lbNext" class="lb-btn" aria-label="Next work"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <button type="button" id="lbClose" class="lb-btn absolute top-4 right-4 md:top-6 md:right-6" aria-label="Close"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </dialog>
+
   <!-- ============ WHO I WORK WITH ============ -->
-  <section class="bg-white">
+  <section class="bg-cream">
     <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-14 md:gap-20 items-center">
       <div class="reveal">
         <p class="eyebrow">Who I work with</p>
@@ -357,7 +553,7 @@
         </ul>
       </div>
 
-      <figure class="reveal relative rounded-[2rem] bg-cream border border-peach px-8 pt-16 pb-10 md:px-12 md:pt-20 md:pb-12">
+      <figure class="reveal relative rounded-[2rem] bg-white border border-peach px-8 pt-16 pb-10 md:px-12 md:pt-20 md:pb-12">
         <span aria-hidden="true" class="absolute top-2 left-7 md:left-10 font-serif text-[7rem] leading-none text-terracotta/30">&ldquo;</span>
         <blockquote class="font-serif italic text-2xl md:text-[1.9rem] leading-snug text-rust">
           Many of my clients find me through creators and coaches I've worked alongside. I'm grateful for every introduction, and I treat every business like it's my own.
@@ -370,7 +566,7 @@
   </section>
 
   <!-- ============ HOW IT WORKS ============ -->
-  <section id="process" class="bg-cream">
+  <section id="process" class="bg-white">
     <div class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-12 gap-14 md:gap-16">
 
       <!-- intro (sticks while the steps scroll on desktop) -->
@@ -403,7 +599,7 @@
         <ol class="space-y-6">
           <li class="reveal relative flex gap-5 sm:gap-7">
             <span aria-hidden="true" class="absolute left-7 top-14 -bottom-6 border-l border-dashed border-terracotta/35"></span>
-            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-white border border-terracotta/40 text-terracotta shadow-[0_0_0_6px_#FFF8F0]">
+            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-white border border-terracotta/40 text-terracotta shadow-[0_0_0_6px_#FFFFFF]">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4 3.5V16A2 2 0 0 1 4 14z"/><path d="M9 10h.01M12 10h.01M15 10h.01"/></svg>
             </span>
             <div class="flex-1 rounded-[1.75rem] bg-white border border-peach p-6 sm:p-8 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
@@ -418,7 +614,7 @@
 
           <li class="reveal relative flex gap-5 sm:gap-7">
             <span aria-hidden="true" class="absolute left-7 top-14 -bottom-6 border-l border-dashed border-terracotta/35"></span>
-            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-white border border-terracotta/40 text-terracotta shadow-[0_0_0_6px_#FFF8F0]">
+            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-white border border-terracotta/40 text-terracotta shadow-[0_0_0_6px_#FFFFFF]">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-path"/></svg>
             </span>
             <div class="flex-1 rounded-[1.75rem] bg-white border border-peach p-6 sm:p-8 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(154,74,42,.45)]">
@@ -432,7 +628,7 @@
           </li>
 
           <li class="reveal relative flex gap-5 sm:gap-7">
-            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-terracotta text-white shadow-[0_0_0_6px_#FFF8F0]">
+            <span class="relative z-10 shrink-0 grid place-items-center w-14 h-14 rounded-full bg-terracotta text-white shadow-[0_0_0_6px_#FFFFFF]">
               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2.5 19.5h19"/><path d="M9 10.5l2 2 4-4"/></svg>
             </span>
             <div class="flex-1 rounded-[1.75rem] bg-rust text-cream p-6 sm:p-8 relative overflow-hidden transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(154,74,42,.7)]">
@@ -453,7 +649,7 @@
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section id="about" class="bg-white">
+  <section id="about" class="bg-cream">
     <div class="max-w-5xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-12 gap-12 md:gap-14 items-center">
       <div class="md:col-span-4 reveal">
         <div class="relative mx-auto w-[220px] md:w-[250px]">
@@ -486,7 +682,7 @@
   </section>
 
   <!-- ============ FINAL CTA ============ -->
-  <section id="contact" class="bg-white px-4 md:px-8 pb-20 md:pb-28">
+  <section id="contact" class="bg-white px-4 md:px-8 py-20 md:py-28">
     <div class="reveal relative max-w-6xl mx-auto overflow-hidden rounded-[2.5rem] bg-rust px-6 py-20 md:py-28 text-center">
       <img src="assets/flower-asset.jpg" alt="" aria-hidden="true"
            class="absolute inset-y-0 right-0 h-full w-full md:w-1/2 object-cover opacity-[.14] mix-blend-luminosity [mask-image:linear-gradient(to_left,black,transparent)]">
@@ -584,7 +780,7 @@
 
   // nav: highlight the section in view
   const links = [...document.querySelectorAll('.nav-link')];
-  const spySections = ['help', 'process', 'about', 'contact'].map(id => document.getElementById(id));
+  const spySections = ['help', 'work', 'process', 'about', 'contact'].map(id => document.getElementById(id));
   const setActive = id => links.forEach(l => {
     const on = l.getAttribute('href') === '#' + id;
     l.classList.toggle('active', on);
@@ -636,6 +832,41 @@
       document.getElementById('copyStatus').textContent = '';
     }, 2000);
   });
+
+  // work gallery: filters
+  const workItems = [...document.querySelectorAll('.work-item')];
+  document.querySelectorAll('.work-filter').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.work-filter').forEach(b => b.setAttribute('aria-pressed', b === btn));
+    const f = btn.dataset.filter;
+    workItems.forEach(item => item.classList.toggle('is-hidden', f !== 'all' && item.dataset.cat !== f));
+  }));
+
+  // work gallery: lightbox (the report card is a plain link to the PDF)
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  let lbList = [], lbIndex = 0;
+  const lbShow = () => {
+    const b = lbList[lbIndex];
+    lbImg.src = b.dataset.full;
+    lbImg.alt = b.querySelector('img').alt;
+    document.getElementById('lbTitle').textContent = b.dataset.title;
+    document.getElementById('lbSub').textContent = b.dataset.sub;
+    document.getElementById('lbCount').textContent = `${lbIndex + 1} / ${lbList.length}`;
+  };
+  const lbStep = d => { lbIndex = (lbIndex + d + lbList.length) % lbList.length; lbShow(); };
+  document.querySelectorAll('button.work-open').forEach(b => b.addEventListener('click', () => {
+    lbList = [...document.querySelectorAll('.work-item:not(.is-hidden) button.work-open')];
+    lbIndex = lbList.indexOf(b);
+    lbShow();
+    lb.showModal();
+    document.documentElement.classList.add('lb-open');
+  }));
+  document.getElementById('lbPrev').addEventListener('click', () => lbStep(-1));
+  document.getElementById('lbNext').addEventListener('click', () => lbStep(1));
+  document.getElementById('lbClose').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.hasAttribute('data-close')) lb.close(); });
+  lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') lbStep(-1); if (e.key === 'ArrowRight') lbStep(1); });
+  lb.addEventListener('close', () => document.documentElement.classList.remove('lb-open'));
 
   // fade-up on scroll
   const io = new IntersectionObserver(entries => {
